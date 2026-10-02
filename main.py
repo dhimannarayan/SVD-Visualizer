@@ -1,34 +1,60 @@
 import numpy as np
 from PIL import Image
-import fastapi
 
-#loads image from file path.
-def load_image(file):
-    image = Image.open(file)
-    return np.array(image)
+class SVD_compressor:
+
+    #loads image from file path.
+    def load_image(self, file):
+        image = Image.open(file)
+        return np.array(image)
 
 
-#Computes the svd of the image
-def compute_svd(image):
-    U, S, Vt = np.linalg.svd(image, full_matrices=False)
-    return U, S, Vt
+    #Computes the svd of the image
+    def compute_svd(self, image):
+        U, S, Vt = np.linalg.svd(image, full_matrices=False)
+        return U, S, Vt
 
-#Makes the rank-k approximation matrix
-def reconstruct(U, S, Vt, k):
-   U_k = U[:, :k]
-   Vt_k = Vt[:k, :]
-   S_k = np.diag(S[:k])
-   result = U_k.dot(S_k).dot(Vt_k)
-   return result
+    #Initializer of svd compressor.
+    def __init__(self, file):
+            self.image = self.load_image(file)
+            self.U, self.S, self.Vt = self.compute_svd(self.image)
+            self.k = 1
+            self.min_k = 1
+            self.max_k = min(self.image.shape)
 
-#saves the rank k approximation matrix as an image file to path.
-def save_image(svd, path):
-    svd = np.clip(svd, 0, 255).astype(np.uint8)
-    image = Image.fromarray(svd)
-    image.save(path)
+    #Makes the rank-k approximation matrix
+    def reconstruct(self,  k):
+        if( (k < self.min_k) or (k > self.max_k)):
+             raise ValueError("k must be between 1 and the min of dimensions.")
 
-#Error in reconstruction.
-def reconstruction_error(original, matrix):
+        U_k = self.U[:, :k]
+        Vt_k = self.Vt[:k, :]
+        S_k = np.diag(self.S[:k])
+        result = U_k.dot(S_k).dot(Vt_k)
+        return result
 
-#
-def info_retained(original, matrix):
+    #saves the rank k approximation matrix as an image file to path.
+    def save_image(svd, path):
+        svd = np.clip(svd, 0, 255).astype(np.uint8)
+        image = Image.fromarray(svd)
+        image.save(path)
+
+    #Absolute Error in rank-k reconstruction.
+    def abs_reconstruction_error(original, matrix):
+        difference = original - matrix
+        error = np.linalg.norm(difference, "fro")
+        return error
+
+    #Relative Error in rank-k reconstruction.
+    def rel_reconstruction_error(self, matrix):
+        difference = self.image - matrix
+        error = np.linalg.norm(difference, "fro")
+        norm_original = np.linalg.norm(self.image)
+        return error/norm_original
+    
+    # Percentage of total information/ energy retained in the aproximation.
+    def info_retained(self):
+        total = np,sum(self.S**2)
+        retained = np.sum(self.S[:self.k]**2)
+        return 100 * retained/total
+        
