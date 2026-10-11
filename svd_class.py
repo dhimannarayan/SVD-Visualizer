@@ -4,6 +4,7 @@ from PIL import Image
 class SVD_compressor:
 
     #loads image from file path.
+    #PIL works with file like objects.
     def load_image(self, file):
         image = Image.open(file).convert("L")
         return np.array(image)
@@ -39,7 +40,7 @@ class SVD_compressor:
         print("Saving image...")
         svd = np.clip(svd, 0, 255).astype(np.uint8)
         image = Image.fromarray(svd)
-        image.save(path)
+        image.save(path, format="PNG")
         print("saved image to: ", path)
 
     #Absolute Error in rank-k reconstruction.

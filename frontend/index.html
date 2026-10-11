@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <link rel="stylesheet" href="style.css">
+    <title>SVD Visualizer</title>
+  </head>
+  <body>
+    <header>
+        <h1>SVD Visualizer</h1>
+        <p>Explore image compression using Singular Value Decomposition.</p>
+    </header>
+
+    <main>
+        <section id="upload-section">
+            <h2>Upload an Image</h2>
+            <input type="file" id="image-input" accept="image/*">
+            <button id="upload-button" type="button">Upload</button>
+            <p id="upload-status"></p>
+        </section>
+
+        <section id="images-section">
+            <div>
+                <h2>Original Image</h2>
+                <img id="original-image" alt="Original uploaded image">
+            </div>
+
+            <div>
+                <h2>Reconstructed Image</h2>
+                <img id="reconstructed-image" alt="Rank-k reconstructed image">
+            </div>
+        </section>
+
+        <section id="controls-section">
+            <h2>Compression Controls</h2>
+
+            <p>Image dimensions: <span id="image-dimensions">—</span></p>
+
+            <label for="rank-slider">Rank (k):</label>
+            <input type="range" id="rank-slider" min="1" max="1" value="1" disabled>
+            <span id="rank-value">10</span>
+        </section>
+
+        <section id="metrics-section">
+            <h2>Reconstruction Metrics</h2>
+
+            <p>Absolute error: <span id="absolute-error">—</span></p>
+            <p>Relative error: <span id="relative-error">—</span></p>
+            <p>Information retained: <span id="information-retained">—</span></p>
+        </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

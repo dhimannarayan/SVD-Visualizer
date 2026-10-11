@@ -1,0 +1,136 @@
+/*General Page styling*/
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: beige;
+    color: #222;
+}
+
+/*page header*/
+header{
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #405065;
+    color: white;    
+}
+
+header h1{
+    margin: 0 0 10px;
+}
+
+header p{
+    margin: 0;
+    color: #d1d5db;
+}
+
+/* Main Sector*/
+Main{
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Each section becomes a card */
+section {
+    background-color: white;
+    padding: 24px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+/* Upload controls */
+#upload-section input,
+#upload-section button {
+    margin-top: 10px;
+}
+
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+#upload-status {
+    margin-bottom: 0;
+    color: #4b5563;
+}
+
+/* Side-by-side image displays */
+#images-section {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+#images-section img {
+    display: block;
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    margin-top: 12px;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+}
+
+#images-section img:not([src]) {
+    display: none;
+}
+
+/* Rank slider */
+#rank-slider {
+    width: 100%;
+    margin: 16px 0;
+    cursor: pointer;
+}
+
+#rank-value {
+    font-weight: bold;
+}
+
+/* Metrics */
+#metrics-section p {
+    padding: 12px;
+    margin: 8px 0;
+    background-color: #f9fafb;
+    border-radius: 6px;
+}
+
+@media (max-width: 650px) {
+    #images-section {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        margin-top: 16px;
+        padding: 0 12px;
+    }
+
+    section {
+        padding: 18px;
+    }
+}
+

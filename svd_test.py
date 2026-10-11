@@ -12,9 +12,10 @@ print("Minimum k:", compressor.min_k, "\n")
 print("Maximum k:", compressor.max_k, "\n")
 print("-------------------------------------------------------------\n")
 
+k = int(input("Enter the value of k: "))
 start = time.time()
 #testing reconstruct function
-reconstruction = compressor.reconstruct(50)
+reconstruction = compressor.reconstruct(k)
 print("RECONSTRUCTION TIME: ", time.time() - start, "\n")
 
 print("Current k:", compressor.k, "\n")
